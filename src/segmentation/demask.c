@@ -8,8 +8,7 @@
 
 // SUB_FUNCTIONS
 
-static inline
-void demask0(char **mat, size_t size)
+static inline void demask0(char **mat, size_t size)
 {
     for(size_t i = 0; i < size; i++)
     {
@@ -28,8 +27,7 @@ void demask0(char **mat, size_t size)
     }
 }
 
-static inline
-void demask1(char **mat, size_t size)
+static inline void demask1(char **mat, size_t size)
 {
     for(size_t i = 0; i < size; i++)
     {
@@ -46,8 +44,7 @@ void demask1(char **mat, size_t size)
     }
 }
 
-static inline
-void demask2(char **mat, size_t size)
+static inline void demask2(char **mat, size_t size)
 {
     for(size_t i = 0; i < size; i++)
     {
@@ -64,8 +61,7 @@ void demask2(char **mat, size_t size)
     }
 }
 
-static inline
-void demask3(char **mat, size_t size)
+static inline void demask3(char **mat, size_t size)
 {
     for(size_t i = 0; i < size; i++)
     {
@@ -82,8 +78,7 @@ void demask3(char **mat, size_t size)
     }
 }
 
-static inline
-void demask4(char **mat, size_t size)
+static inline void demask4(char **mat, size_t size)
 {
     for(size_t i = 0; i < size; i++)
     {
@@ -100,8 +95,7 @@ void demask4(char **mat, size_t size)
     }
 }
 
-static inline
-void demask5(char **mat, size_t size)
+static inline void demask5(char **mat, size_t size)
 {
     for(size_t i = 0; i < size; i++)
     {
@@ -118,8 +112,7 @@ void demask5(char **mat, size_t size)
     }
 }
 
-static inline
-void demask6(char **mat, size_t size)
+static inline void demask6(char **mat, size_t size)
 {
     for(size_t i = 0; i < size; i++)
     {
@@ -136,8 +129,7 @@ void demask6(char **mat, size_t size)
     }
 }
 
-static inline
-void demask7(char **mat, size_t size)
+static inline void demask7(char **mat, size_t size)
 {
     for(size_t i = 0; i < size; i++)
     {
@@ -159,20 +151,20 @@ void demask7(char **mat, size_t size)
 void demask(char **mat, size_t size, int mask)
 {
     if (mask == 0)
-        demask0(mat , size);
+        demask0(mat, size);
     else if (mask == 1)
-        demask1(mat , size);
+        demask1(mat, size);
     else if (mask == 2)
-        demask2(mat , size);
+        demask2(mat, size);
     else if (mask == 3)
-        demask3(mat , size);
+        demask3(mat, size);
     else if (mask == 4)
-        demask4(mat , size);
+        demask4(mat, size);
     else if (mask == 5)
-        demask5(mat , size);
+        demask5(mat, size);
     else if (mask == 6)
-        demask6(mat , size);
+        demask6(mat, size);
     else if (mask == 7)
-        demask7(mat , size);
+        demask7(mat, size);
     return;
 }
