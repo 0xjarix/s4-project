@@ -1,16 +1,15 @@
 /*
 **  Validate QrCode Existence from Finder Patterns
-**  file : FPValid.c
-**  desrciption : Validates whether or not if there is a QrCode, and wether
-**  it is workable, retrieves afterwards FP A, B, C
+**  Validates whether or not if there is a QrCode.
 */
 
 # include "FPValid.h"
 
 static inline
-struct FPresults *Find_QrCodes(void)
+struct FPresults *Find_QrCodes()
 {
-    err(EXIT_FAILURE, "Segmentation not implemented : possible multiple QrCodes");
+    err(EXIT_FAILURE,
+            "Segmentation not implemented : possible multiple QrCodes");
     return NULL;
 }
 
@@ -24,18 +23,24 @@ struct FPresults *QrCode_found(struct FPat *fp)
     {
         return Find_QrCodes();
     }
-    
+
     //Check distances
-    double dist1_2 = sqrt(pow(fp->centers->mat[1][0] - fp->centers->mat[0][0],2)
-                        + pow(fp->centers->mat[1][1] - fp->centers->mat[0][1],2));
-    double dist1_3 = sqrt(pow(fp->centers->mat[2][0] - fp->centers->mat[0][0],2)
-                        + pow(fp->centers->mat[2][1] - fp->centers->mat[0][1],2));
-    double dist2_3 = sqrt(pow(fp->centers->mat[1][0] - fp->centers->mat[2][0],2)
-                        + pow(fp->centers->mat[1][1] - fp->centers->mat[2][1],2));
-    
+    double dist1_2 = sqrt(pow(fp->centers->mat[1][0] -
+                fp->centers->mat[0][0],2)
+                        + pow(fp->centers->mat[1][1] -
+                            fp->centers->mat[0][1],2));
+    double dist1_3 = sqrt(pow(fp->centers->mat[2][0] -
+                fp->centers->mat[0][0],2)
+                        + pow(fp->centers->mat[2][1] -
+                            fp->centers->mat[0][1],2));
+    double dist2_3 = sqrt(pow(fp->centers->mat[1][0] -
+                fp->centers->mat[2][0],2)
+                        + pow(fp->centers->mat[1][1] -
+                            fp->centers->mat[2][1],2));
+
     int indexA;
     struct FPresults *ret = malloc(sizeof(struct FPresults));
-    
+
     if(dist1_2 > dist1_3 && dist1_2 > dist2_3)
     {
         indexA = 2;
@@ -47,7 +52,7 @@ struct FPresults *QrCode_found(struct FPat *fp)
         ret->y1 = fp->centers->mat[2][1];
         ret->y2 = fp->centers->mat[0][1];
         ret->y3 = fp->centers->mat[1][1];
-        
+
     }
     else if(dist1_3 > dist1_2 && dist1_3 > dist2_3)
     {
@@ -61,7 +66,7 @@ struct FPresults *QrCode_found(struct FPat *fp)
         ret->y2 = fp->centers->mat[2][1];
         ret->y3 = fp->centers->mat[0][1];
     }
-    else 
+    else
     {
         indexA = 0;
         ret->indexA = indexA;
@@ -73,13 +78,7 @@ struct FPresults *QrCode_found(struct FPat *fp)
         ret->y2 = fp->centers->mat[1][1];
         ret->y3 = fp->centers->mat[2][1];
     }
-   
-     
-    return ret;    
-}
 
-/*
-double *getBandC (struct FPat *fp, int A, double distB_C )
-{
-    
-}*/
+
+    return ret;
+}
