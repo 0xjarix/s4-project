@@ -1,0 +1,9 @@
+# Generated files
+target/
+debug/
+*~
+*.swp
+*.swo
+*.swn
+*.d
+*.o
