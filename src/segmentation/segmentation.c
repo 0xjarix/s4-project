@@ -1,16 +1,7 @@
-/*
- ** MAIN FILE FOR SEGMENTATION
- ** - Free Functions
- ** - Main Segmentation Function
- ** - Main Preprocessing Function
- */
-
 #include "segmentation.h"
 #include <unistd.h>
-/*---Free Functions---*/
 
-    static inline
-void print_mat(char **mat, int size)
+static inline void print_mat(char **mat, int size)
 {
     printf("\n");
     for(int i = 0; i < size; i++)
@@ -25,8 +16,7 @@ void print_mat(char **mat, int size)
     printf("\n");
 }
 
-    static inline
-void free_FPat(struct FPat *f)
+static inline void free_FPat(struct FPat *f)
 {
     if(f == NULL)
         return;
@@ -35,16 +25,14 @@ void free_FPat(struct FPat *f)
     free(f);
 }
 
-    static inline
-void free_FPresults(struct FPresults *f)
+static inline void free_FPresults(struct FPresults *f)
 {
     if(f == NULL)
         return;
     free(f);
 }
 
-    static inline
-void free_QrCode(struct QrCode *q)
+static inline void free_QrCode(struct QrCode *q)
 {
     if(q == NULL)
         return;
@@ -57,8 +45,7 @@ void free_QrCode(struct QrCode *q)
     free(q);
 }
 
-    static inline
-void free_GeoImg(struct GeoImg *g)
+static inline void free_GeoImg(struct GeoImg *g)
 {
     free(g->coordA);
     free(g->coordB);
@@ -193,6 +180,8 @@ struct PCode *SegmentationFromFile(char *File, int Demo)
     SDL_Quit();
     return c;
 }
+
+// Uncomment to run the segmentation separately from the program.
 /*int main(int argc, char *argv[])
 {
     if(argc > 2)
