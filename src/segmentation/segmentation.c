@@ -5,8 +5,8 @@
 ** - Main Preprocessing Function
 */
 
-# include "segmentation.h"
-
+#include "segmentation.h"
+#include <unistd.h>
 /*---Free Functions---*/
 
 static inline
@@ -100,7 +100,7 @@ static inline
 void ImageProcessingDemo(SDL_Surface *img)
 {
     grayscale(img);
-    display_image(img);
+    //display_image(img);
     int threshold = otsu(img);
     if(threshold == 0)
         threshold = 1;
@@ -137,33 +137,16 @@ struct PCode *Segmentation(SDL_Surface *img)
 }
 
 
-struct PCode *SegmentationEpi(SDL_Surface *img, SDL_Surface *color)
-{
-    ImageProcessing(img);
-    struct FPat *f = findFP(img);
-    struct FPresults *fp = QrCode_found(f);
-    if(fp == NULL)
-        err(EXIT_FAILURE, "Segmentation error : No Valid QrCode found");
-    struct GeoImg *g = GeoTransform(img, fp);
-    ImageProcessing(g->img);
-    struct GeoImg *gcolor = GeoTransform(color, fp);
-    //display_image(gcolor->img);
-    struct QrCode *qr = extract_EpCode(g, gcolor);
-    struct PCode *c = get_code(qr);
-    writeWhiteEpi(c->BStream);
-    //printf("%s", c->BStream);
-    free_segmentation(f, fp, g, qr);
-    SDL_FreeSurface(img);
-    return c;
-}
 
 struct PCode *SegmentationDemo(SDL_Surface *img, SDL_Surface *demo)
 {
     printf("> Testing segmentation...\n");
-    printf("|\n|\n");
     printf(">>>   Starting now:\n");
-    ImageProcessingDemo(img);
-    printf("- Preprocessing finished.\n");
+    for (int i= 0; i < 10000; i++)
+        continue;
+    ImageProcessing(img);
+    display_image(img);
+    printf("      - Preprocessing finished.\n");
     struct FPat *f = findFP(img);
     struct FPresults *fp = QrCode_found(f);
     if(fp == NULL)
@@ -174,16 +157,17 @@ struct PCode *SegmentationDemo(SDL_Surface *img, SDL_Surface *demo)
     drawFP(demo, f->centers, f->ems_vector, fp->indexA);
     display_image(demo);
 
-    puts("- Finder Pattern successful, QR code found.\n");
+    puts("      - Finder Pattern successful, QR code found.\n");
     struct GeoImg *g = GeoTransform(img, fp);
-    ImageProcessingDemo(g->img);
+    ImageProcessing(g->img);
     struct QrCode *qr = extract_QrCode(g);
 
-    display_image(g->img);    printf("Bit Matrix :\n");
+    //display_image(g->img);
+    printf("Bit Matrix :\n");
     print_mat(qr->mat, qr->version * 4 + 17);
     struct PCode *c = get_code(qr);
-    puts("> Bit stream extracted from the QR code matrix:\n");
-    printf("Bit Stream : %s\n\n", c->BStream);
+    puts("> Bit stream extracted from the QR code matrix:");
+    printf("%s\n", c->BStream);
     SDL_FreeSurface(img);
     SDL_FreeSurface(demo);
     return c;
@@ -199,11 +183,6 @@ struct PCode *SegmentationFromFile(char *File, int Demo)
         SDL_Surface *demo = load_image(File);
         display_image(img);
         c = SegmentationDemo(img, demo);
-    }
-    else if(Demo == 2)
-    {
-        SDL_Surface *color = load_image(File);
-        c = SegmentationEpi(img, color);
     }
     else
     {

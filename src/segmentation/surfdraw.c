@@ -58,7 +58,7 @@ void drawFP(SDL_Surface *img, struct Dmat *centers, struct Dvector
     foreach_line(centers)                                                       
     {   
         if (i == (size_t)A)
-            c = 'g';                                                                   
+            c = 'r';                                                                   
         double center_x = mat[i][0];                                            
         double center_y = mat[i][1];                                            
         double ems = ems_vector->array[i];                                      
