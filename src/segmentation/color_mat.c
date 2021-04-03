@@ -74,7 +74,7 @@ void color_finders(char **mat, int size)
             mat[i][j] = 'f';
         }
     }
-    
+
     //C
     for(int i = 0; i < 7; i++)
     {
@@ -89,34 +89,34 @@ static inline
 void color_separators(char **mat, int size)
 {
     for(int i = 0; i < 8; i++)
-    {   
+    {
         mat[7][i] = 's';
     }
-    
+
     for(int i = 0; i < 8; i++)
-    {   
+    {
         mat[i][7] = 's';
     }
 
     for(int i = size - 8; i < size; i++)
-    {   
+    {
         mat[7][i] = 's';
     }
 
     for(int i = size - 8; i < size; i++)
-    {   
+    {
         mat[i][7] = 's';
     }
 
     for(int i = 0; i < 8; i++)
-    {   
+    {
         mat[i][size - 8] = 's';
     }
 
     for(int i = 0; i < 8; i++)
-    {   
+    {
         mat[size - 8][i] = 's';
-    }       
+    }
 }
 
 static inline
@@ -154,24 +154,21 @@ static inline
 void color_alignment(char **mat, int version)
 {
     const int *ap = Ap_coord[version-1];
-    
+
     for(int i = 1; i < 8; i++)
     {
         for(int j = 1; j < 8; j++)
-        { 
-            //warn("in loop");
-            if((mat[ap[i]][ap[j]] != '0' && mat[ap[i]][ap[j]] != '1' 
-                && mat[ap[i]][ap[j]] != 't') || 
+        {
+            if((mat[ap[i]][ap[j]] != '0' && mat[ap[i]][ap[j]] != '1'
+                && mat[ap[i]][ap[j]] != 't') ||
                 ap[i] == 0 || ap[j] == 0)
-            {       
-                    //warn("bad coord %d %d", ap[i], ap[j]);
+            {
                     continue;
             }
-            
-            //warn("good coord %d %d", ap[i], ap[j]);
+
             sub_color_alignment(mat, ap[i], ap[j]);
         }
-    }  
+    }
 }
 
 static inline
