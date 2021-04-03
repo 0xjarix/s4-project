@@ -19,22 +19,18 @@
 
 # include "aploc.h"
 
-static inline
-int get_BW(SDL_Surface *img, int x, int y) //returns 0 if black, 1 if white
+static inline int get_BW(SDL_Surface *img, int x, int y)
 {
      Uint32 pixel = getpixel(img, x, y);
      Uint8 r, g, b;
      SDL_GetRGB(pixel, img->format, &r, &g, &b);
-     //printf("color at %d %d: %d \n", x, y, g);
-     //putpixel(img, x, y, SDL_MapRGB(img->format, 255, 0, 0));
      if(g == 0)
         return 0;
      else
         return 1;
 }
 
-static inline
-int check_ratio(int *state)
+static inline int check_ratio(int *state)
 {
     int totsize = 0;
     for(int i = 1; i < 4; i++)
@@ -43,7 +39,6 @@ int check_ratio(int *state)
     if (totsize < 3)
         return 0;
 
-    //printf("state %d %d %d | %lf\n", state[0], state[1], state[2], msize);
 
     double msize = totsize/3;
     double max_var = msize/1.5;
@@ -55,16 +50,15 @@ int check_ratio(int *state)
         return 0;
 }
 
-static inline
-double get_center(int totalsize, int x)
+static inline double get_center(int totalsize, int x)
 {
     double half_segment = (double)totalsize / 2.0;
     double center = (double)x - half_segment;
     return center;
 }
 
-static inline
-double check_ver(SDL_Surface *img, int start_y, int center_x, int totalsize)
+static inline double check_ver(SDL_Surface *img, int start_y,
+        int center_x, int totalsize)
 {
     int h = img->h;
     int state_check[5] = {0};
@@ -140,8 +134,8 @@ double check_ver(SDL_Surface *img, int start_y, int center_x, int totalsize)
     return 0;
 }
 
-static inline
-double check_hor(SDL_Surface *img, int center_y, int start_x, int totalsize)
+static inline double check_hor(SDL_Surface *img,
+        int center_y, int start_x, int totalsize)
 {
     int w = img->w;
     int state_check[5] = {0};
@@ -226,7 +220,8 @@ double check_diag(SDL_Surface *img, int center_y, int center_x, int totalsize)
 
     int i = 0;
 
-    while((center_y >= i) && (center_x >= i) && (get_BW(img, center_x - i, center_y - i) == 0))
+    while((center_y >= i) && (center_x >= i) &&
+            (get_BW(img, center_x - i, center_y - i) == 0))
     {
         state_check[2]++ ;
         i++;
@@ -234,7 +229,8 @@ double check_diag(SDL_Surface *img, int center_y, int center_x, int totalsize)
     if(center_y < i || center_x < i)
         return 0;
 
-    while((center_y >= i) && (center_x >= i) && (get_BW(img, center_x - i, center_y - i) == 1))
+    while((center_y >= i) && (center_x >= i) &&
+            (get_BW(img, center_x - i, center_y - i) == 1))
     {
         state_check[1]++ ;
         i++;
@@ -242,7 +238,8 @@ double check_diag(SDL_Surface *img, int center_y, int center_x, int totalsize)
     if(center_y < i ||center_x < i)
         return 0;
 
-    while((center_y >= i) && (center_x >= i) && (get_BW(img, center_x - i, center_y - i) == 0))
+    while((center_y >= i) && (center_x >= i) &&
+            (get_BW(img, center_x - i, center_y - i) == 0))
     {
         state_check[0]++ ;
         i++;
@@ -254,7 +251,8 @@ double check_diag(SDL_Surface *img, int center_y, int center_x, int totalsize)
 
     i = 1;
 
-    while(((center_y + i) < h) && (center_x+1) < w && (get_BW(img, center_x + i, center_y + i) == 0))
+    while(((center_y + i) < h) && (center_x+1) < w &&
+            (get_BW(img, center_x + i, center_y + i) == 0))
     {
         state_check[2]++ ;
         i++;
@@ -262,7 +260,8 @@ double check_diag(SDL_Surface *img, int center_y, int center_x, int totalsize)
     if((center_y + i) > h || (center_x + i) >= w)
         return 0;
 
-    while(((center_y + i) < h) && ((center_x + i) < w) && (get_BW(img, center_x + i, center_y + i) == 1))
+    while(((center_y + i) < h) && ((center_x + i) < w) &&
+            (get_BW(img, center_x + i, center_y + i) == 1))
     {
         state_check[3]++ ;
         i++;
@@ -270,7 +269,8 @@ double check_diag(SDL_Surface *img, int center_y, int center_x, int totalsize)
     if((center_y + i) >= h || (center_x + i) >= w)
         return 0;
 
-    while(((center_y + i) < h) && ((center_x + i) < w) && (get_BW(img, center_x + i, center_y + i) == 0))
+    while(((center_y + i) < h) && ((center_x + i) < w) &&
+            (get_BW(img, center_x + i, center_y + i) == 0))
     {
         state_check[4]++ ;
         i++;
@@ -374,7 +374,8 @@ void ScanAP(SDL_Surface *img, double *Px, double *Py)
                         int totalsize = check_ratio(state);
                         if(totalsize >= 1)
                         {
-                            handle_centers(img, centers, state, y, x, totalsize);
+                            handle_centers(img, centers, state, y,
+                                    x, totalsize);
                         }
                         else
                         {
