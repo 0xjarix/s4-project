@@ -1,15 +1,15 @@
 /*
-** MAIN FILE FOR SEGMENTATION
-** - Free Functions
-** - Main Segmentation Function
-** - Main Preprocessing Function
-*/
+ ** MAIN FILE FOR SEGMENTATION
+ ** - Free Functions
+ ** - Main Segmentation Function
+ ** - Main Preprocessing Function
+ */
 
 #include "segmentation.h"
 #include <unistd.h>
 /*---Free Functions---*/
 
-static inline
+    static inline
 void print_mat(char **mat, int size)
 {
     printf("\n");
@@ -25,7 +25,7 @@ void print_mat(char **mat, int size)
     printf("\n");
 }
 
-static inline
+    static inline
 void free_FPat(struct FPat *f)
 {
     if(f == NULL)
@@ -35,7 +35,7 @@ void free_FPat(struct FPat *f)
     free(f);
 }
 
-static inline
+    static inline
 void free_FPresults(struct FPresults *f)
 {
     if(f == NULL)
@@ -43,7 +43,7 @@ void free_FPresults(struct FPresults *f)
     free(f);
 }
 
-static inline
+    static inline
 void free_QrCode(struct QrCode *q)
 {
     if(q == NULL)
@@ -57,7 +57,7 @@ void free_QrCode(struct QrCode *q)
     free(q);
 }
 
-static inline
+    static inline
 void free_GeoImg(struct GeoImg *g)
 {
     free(g->coordA);
@@ -68,7 +68,8 @@ void free_GeoImg(struct GeoImg *g)
 }
 
 static inline
-void free_segmentation(struct FPat *f, struct FPresults *fp, struct GeoImg *g, struct QrCode *q)
+void free_segmentation(struct FPat *f, struct FPresults *fp, struct GeoImg *g,\
+        struct QrCode *q)
 {
     free_FPat(f);
     free_FPresults(fp);
@@ -86,7 +87,7 @@ void free_PCode(struct PCode *c)
 
 /*---Main Functions---*/
 
-static inline
+    static inline
 void ImageProcessing(SDL_Surface *img)
 {
     grayscale(img);
@@ -96,7 +97,7 @@ void ImageProcessing(SDL_Surface *img)
     binarize(img, threshold);
 }
 
-static inline
+    static inline
 void ImageProcessingDemo(SDL_Surface *img)
 {
     grayscale(img);
@@ -108,7 +109,7 @@ void ImageProcessingDemo(SDL_Surface *img)
     display_image(img);
 }
 
-static inline
+    static inline
 void writeWhiteEpi(char *s)
 {
     int i = 0;
@@ -192,15 +193,14 @@ struct PCode *SegmentationFromFile(char *File, int Demo)
     SDL_Quit();
     return c;
 }
-
 int main(int argc, char *argv[])
 {
     if(argc > 2)
     {
         if(strcmp(argv[2], "-d") == 0)
+        {
             SegmentationFromFile(argv[1], 1);
-        else if(strcmp(argv[2], "-e") == 0)
-            SegmentationFromFile(argv[1], 2);
+        }
     }
     else if(argc > 1)
         SegmentationFromFile(argv[1], 0);
