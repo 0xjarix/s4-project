@@ -162,7 +162,7 @@ struct PCode *SegmentationDemo(SDL_Surface *img, SDL_Surface *demo)
     ImageProcessing(g->img);
     struct QrCode *qr = extract_QrCode(g);
 
-    //display_image(g->img);
+    display_image(g->img);
     printf("Bit Matrix :\n");
     print_mat(qr->mat, qr->version * 4 + 17);
     struct PCode *c = get_code(qr);
