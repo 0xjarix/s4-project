@@ -48,13 +48,15 @@ void display_image(SDL_Surface *img)
 {
     int SCREEN_WIDTH = img->w;
     int SCREEN_HEIGHT = img->h;
-    if (SCREEN_WIDTH > 1000 || SCREEN_HEIGHT > 1000)
-    {
-        SCREEN_WIDTH /= 2;
-        SCREEN_HEIGHT /= 2;
-    }
 
-    SDL_Window *window = SDL_CreateWindow("Display image", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    SDL_Rect rect;
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = 300;
+    rect.h = 300;
+
+    SDL_Window *window = SDL_CreateWindow("Display image",\
+            SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
             SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     if(window == NULL)
@@ -62,7 +64,7 @@ void display_image(SDL_Surface *img)
 
     SDL_Surface *screen = SDL_GetWindowSurface(window);
 
-    if(SDL_BlitSurface(img, NULL, screen, NULL) < 0)
+    if(SDL_BlitSurface(img, NULL, screen, &rect) < 0)
         warnx("BlitSurface error %s\n", SDL_GetError());
 
     SDL_UpdateWindowSurface(window);
