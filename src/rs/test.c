@@ -128,7 +128,7 @@ int main()
 	}
 	printf("]\n");*/
 
-	printf("Msg Tempered: ");
+	printf("Message Tempered: ");
 	for (size_t i = 0; i < strlen(my_msg); i++) {
 		printf("%c",msg->array[i]);
 	}
@@ -184,7 +184,7 @@ int main()
 	}
 	printf("]\n");
 
-	printf("Msg Corrected: ");
+	printf("Message Corrected: ");
 	for (size_t i = 0; i < strlen(my_msg); i++) {
 		printf("%c",msg->array[i]);
 	}

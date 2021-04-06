@@ -17,7 +17,7 @@ void print_AP(double ***mat, int size)
         printf("[ ");
         for(int j = 0; j < size; j++)
         {
-            printf("{ %lf | %lf } ", mat[j][i][0], mat[j][i][1]);                
+            printf("{ %lf | %lf } ", mat[j][i][0], mat[j][i][1]);
         }
         printf("]\n");
     }
@@ -31,7 +31,7 @@ void draw_AP(double ***mat, int size, SDL_Surface *img)
     {
         for(int j = 0; j < size; j++)
         {
-            Draw_point(img, mat[j][i][0], mat[j][i][1]);                
+            Draw_point(img, mat[j][i][0], mat[j][i][1]);
         }
     }
 }
@@ -69,18 +69,18 @@ void print_matd(double **mat, int sizex, int sizey)
 
 }
 
-static inline                                                                   
-int get_BW(SDL_Surface *img, int x, int y) //returns 0 if black, 1 if white     
-{                                                                               
-     Uint32 pixel = getpixel(img, x, y);                                         
-     Uint8 r, g, b;                                                              
+static inline
+int get_BW(SDL_Surface *img, int x, int y) //returns 0 if black, 1 if white
+{
+     Uint32 pixel = getpixel(img, x, y);
+     Uint8 r, g, b;
      SDL_GetRGB(pixel, img->format, &r, &g, &b);
      //printf("color at %d %d: %d \n", x, y, g);
-     //putpixel(img, x, y, SDL_MapRGB(img->format, 255, 0, 0)); 
-     if(g == 0)                                                                  
-        return 0;                                                               
-     else                                                                        
-        return 1; 
+     //putpixel(img, x, y, SDL_MapRGB(img->format, 255, 0, 0));
+     if(g == 0)
+        return 0;
+     else
+        return 1;
 }
 
 static inline
@@ -118,16 +118,16 @@ int checkRatio(int *state, double msize)
     int totsize = 0;
     for(int i = 0; i < 3; i++)
         totsize += state[i];
-    
+
     if (totsize < 3)
         return 0;
-   
+
     //printf("state %d %d %d | %lf\n", state[0], state[1], state[2], msize);
 
     double max_var = msize/1.5;
-    if((abs(msize - state[0]) <= max_var) &&
-       (abs(msize - state[1]) <= max_var) &&
-       (abs(msize - state[2]) <= max_var))
+    if((abs((int)msize - state[0]) <= max_var) &&
+       (abs((int)msize - state[1]) <= max_var) &&
+       (abs((int)msize - state[2]) <= max_var))
         return totsize;
     else
         return 0;
@@ -135,7 +135,7 @@ int checkRatio(int *state, double msize)
 
 static inline
 void SampleGridKernelE(char **mat,
-double XA, double YA, double XB, double YB, double XC, double YC, double XD, double YD, 
+double XA, double YA, double XB, double YB, double XC, double YC, double XD, double YD,
 double CPxp, double CPyp, double CPx, double CPy,
 int AP, int pX, int pY, SDL_Surface *co)
 {
@@ -150,7 +150,7 @@ int AP, int pX, int pY, SDL_Surface *co)
     double dX;
     double dY;
     double weightX;
-    double weightY; 
+    double weightY;
     for(int y = 6; y < AP + 6; y++)
     {
         for(int x = 6; x < AP + 6; x++)
@@ -186,7 +186,7 @@ double CPyp, double CPAx, double CPCx, int AP, int pY, SDL_Surface *co)
     double aY;
     double cX;
     double cY;
-    double weightY; 
+    double weightY;
     for(int y = 7; y < AP + 7; y++)
     {
         for(int x = 5; x >= 0; x--)
@@ -331,7 +331,7 @@ double CPx, double CPy, int AP, int SNB, SDL_Surface *co)
 
 static inline
 void SampleGridKernel(SDL_Surface *img, char **mat,
-double XA, double YA, double XB, double YB, double XC, double YC, double XD, double YD, 
+double XA, double YA, double XB, double YB, double XC, double YC, double XD, double YD,
 double CPxp, double CPyp, double CPx, double CPy,
 int AP, int pX, int pY)
 {
@@ -346,7 +346,7 @@ int AP, int pX, int pY)
     double dX;
     double dY;
     double weightX;
-    double weightY; 
+    double weightY;
     for(int y = 6; y < AP + 6; y++)
     {
         for(int x = 6; x < AP + 6; x++)
@@ -389,7 +389,7 @@ double CPyp, double CPAx, double CPCx, int AP, int pY)
     double aY;
     double cX;
     double cY;
-    double weightY; 
+    double weightY;
     for(int y = 7; y < AP + 7; y++)
     {
         for(int x = 5; x >= 0; x--)
@@ -577,12 +577,12 @@ int WC, int HA, int HB, int HC, SDL_Surface *co)
     for(int i = 0; i < size; i++)
     {
         mat[i] = malloc(sizeof(char) * size);
-        for(int j = 0; j < size; j++) 
+        for(int j = 0; j < size; j++)
             mat[i][j] = '0';
     }
-    
-    int distAP = Ap_coord[qr->version - 1][2] - Ap_coord[qr->version - 1][1]; 
-    int AP[2] = {Ap_coord[qr->version - 1][2], Ap_coord[qr->version - 1][2]}; 
+
+    int distAP = Ap_coord[qr->version - 1][2] - Ap_coord[qr->version - 1][1];
+    int AP[2] = {Ap_coord[qr->version - 1][2], Ap_coord[qr->version - 1][2]};
     double CPAx = (double)WA / 7;
     double CPBx = (double)WB / 7;
     double CPCx = (double)WC / 7;
@@ -600,13 +600,13 @@ int WC, int HA, int HB, int HC, SDL_Surface *co)
     Draw_point(qrimg->img, XA, YA);
     Draw_point(qrimg->img, XB, YB);
     Draw_point(qrimg->img, XC, YC);
-    ScanAP(qrimg->img, &Px, &Py); 
+    ScanAP(qrimg->img, &Px, &Py);
     //AP SCANNED
-    
-    double Lxp = abs(XA - XB);
-    double Lyp = abs(YA - YC);
-    double Lx = abs(XC - Px);
-    double Ly = abs(YB - Py);
+
+    double Lxp = abs((int)XA - (int)XB);
+    double Lyp = abs((int)YA - (int)YC);
+    double Lx = abs((int)XC - (int)Px);
+    double Ly = abs((int)YB - (int)Py);
     double CPxp = Lxp / distAP;
     double CPyp = Lyp / distAP;
     double CPx = Lx / distAP;
@@ -633,16 +633,16 @@ distAP, 0, 0, co);
 
 void SampleCodeV7_40E(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB,
 int WC, int HA, int HB, int HC, SDL_Surface *co)
-{ 
+{
     int size = qr->version * 4 + 17;
     char **mat = malloc(sizeof(char*) * size);
     for(int i = 0; i < size; i++)
     {
         mat[i] = malloc(sizeof(char) * size);
-        for(int j = 0; j < size; j++) 
+        for(int j = 0; j < size; j++)
             mat[i][j] = '0';
     }
-    
+
     int distAP = Ap_coord[qr->version - 1][2] - Ap_coord[qr->version - 1][1];
     int SampleKNb = (int)sqrt(Ap_coord[qr->version - 1][0] + 3);
     double CPAx = (double)WA / 7;
@@ -659,7 +659,7 @@ int WC, int HA, int HB, int HC, SDL_Surface *co)
     double XC = qrimg->coordC[0] + 3 * CPCx;
     double YC = qrimg->coordC[1] - 3 * CPCy;
     double ***APStack = malloc(sizeof(double) * SampleKNb);
-    
+
     for(int i = 0; i < SampleKNb; i++)
     {
         APStack[i] = malloc(sizeof(double*) * SampleKNb);
@@ -668,17 +668,17 @@ int WC, int HA, int HB, int HC, SDL_Surface *co)
             APStack[i][j] = calloc(2, sizeof(double));
         }
     }
-    
+
     double **CPxs = malloc(sizeof(double*) * (SampleKNb));
     for(int i = 0; i < SampleKNb; i++)
     {
-        CPxs[i] = calloc(SampleKNb, sizeof(double)); 
+        CPxs[i] = calloc(SampleKNb, sizeof(double));
     }
-    
+
     double **CPys = malloc(sizeof(double*) * (SampleKNb - 1));
     for(int i = 0; i < SampleKNb - 1; i++)
     {
-        CPys[i] = calloc(SampleKNb, sizeof(double)); 
+        CPys[i] = calloc(SampleKNb, sizeof(double));
     }
     APStack[0][0][0] = XA;
     APStack[0][0][1] = YA;
@@ -725,11 +725,11 @@ int WC, int HA, int HB, int HC, SDL_Surface *co)
             APStack[x + 1][y + 1][0] = Px3;
             APStack[x + 1][y + 1][1] = Py3;
             //Updating module size
-            Lxp = abs(APStack[x][y][0] - APStack[x + 1][y][0]);
-            Lyp = abs(APStack[x][y][1] - APStack[x][y + 1][1]);
-            Lx = abs(APStack[x][y + 1][0] - APStack[x + 1][y + 1][0]);
-            Ly = abs(APStack[x + 1][y][1] - APStack[x + 1][y + 1][1]);
-            //warn("Lxp, Lyp, Lx, Ly : %lf %lf %lf %lf", Lxp, Lyp, Lx, Ly); 
+            Lxp = abs((int)APStack[x][y][0] - (int)APStack[x + 1][y][0]);
+            Lyp = abs((int)APStack[x][y][1] - (int)APStack[x][y + 1][1]);
+            Lx = abs((int)APStack[x][y + 1][0] - (int)APStack[x + 1][y + 1][0]);
+            Ly = abs((int)APStack[x + 1][y][1] - (int)APStack[x + 1][y + 1][1]);
+            //warn("Lxp, Lyp, Lx, Ly : %lf %lf %lf %lf", Lxp, Lyp, Lx, Ly);
             CPxp = Lxp / distAP;
             CPyp = Lyp / distAP;
             CPx = Lx / distAP;
@@ -741,16 +741,16 @@ int WC, int HA, int HB, int HC, SDL_Surface *co)
             SampleGridKernelE(mat, APStack[x][y][0],
             APStack[x][y][1], APStack[x+1][y][0], APStack[x+1][y][1],
             APStack[x][y+1][0], APStack[x][y+1][1], APStack[x + 1][y + 1][0],
-            APStack[x + 1][y + 1][1], CPxs[y][x], CPys[y][x], CPxs[y + 1][x], 
+            APStack[x + 1][y + 1][1], CPxs[y][x], CPys[y][x], CPxs[y + 1][x],
             CPys[y][x + 1], distAP, x, y,co);
             x++;
         }
         CPxp = CPxs[y][0];
-        CPyp = CPys[y][0]; 
+        CPyp = CPys[y][0];
         x = 0;
         y++;
     }
-    
+
     //Left Border
     for(int y = 0; y < SampleKNb - 1; y++)
     {
@@ -761,10 +761,10 @@ int WC, int HA, int HB, int HC, SDL_Surface *co)
             APStack[0][1][1], CPys[0][0], CPAx, CPxs[1][0], distAP, 0,co);
         }
         else if(y == SampleKNb - 2)
-        { 
+        {
             SampleGridBorderLeftE(mat,
             APStack[0][y][0], APStack[0][y][1], APStack[0][y + 1][0],
-            APStack[0][y + 1][1], CPys[y][0], CPxs[y][0], CPCx, distAP, y,co);   
+            APStack[0][y + 1][1], CPys[y][0], CPxs[y][0], CPCx, distAP, y,co);
         }
         else
         {
@@ -774,7 +774,7 @@ int WC, int HA, int HB, int HC, SDL_Surface *co)
 distAP, y,co);
         }
     }
-    
+
     //Top Border
     for(int x = 0; x < SampleKNb - 1; x++)
     {
@@ -785,10 +785,10 @@ distAP, y,co);
             APStack[1][0][1], CPxs[0][0], CPAy, CPys[0][1], distAP, 0,co);
         }
         else if(x == SampleKNb - 2)
-        { 
+        {
             SampleGridBorderTopE(mat,
             APStack[x][0][0], APStack[x][0][1], APStack[x + 1][0][0],
-            APStack[x + 1][0][1], CPxs[0][x], CPys[0][x], CPBy, distAP, x,co);   
+            APStack[x + 1][0][1], CPxs[0][x], CPys[0][x], CPBy, distAP, x,co);
         }
         else
         {
@@ -798,7 +798,7 @@ distAP, y,co);
 distAP, x,co);
         }
     }
-    
+
     //Bottom Border
     int yend = SampleKNb - 1;
     for(int x = 0; x < SampleKNb - 1; x++)
@@ -818,7 +818,7 @@ distAP, x,co);
 - 1][x + 1], distAP, x, yend - 1, co);
         }
     }
-    
+
     //Right Border
     int xend = SampleKNb - 1;
     for(int y = 0; y < SampleKNb - 1; y++)
@@ -838,16 +838,16 @@ distAP, x,co);
 CPys[y][xend], distAP, y, xend - 1, co);
         }
     }
-    
+
     SampleGridCornerE(mat, APStack[SampleKNb - 1][SampleKNb - 1][0],
-    APStack[SampleKNb - 1][SampleKNb - 1][1], CPxs[yend][xend - 1], 
+    APStack[SampleKNb - 1][SampleKNb - 1][1], CPxs[yend][xend - 1],
     CPys[yend -1][xend], distAP, xend - 1, co);
-    
+
     //print_mat(mat, size);
     draw_AP(APStack, SampleKNb, qrimg->img);
     //display_image(qrimg->img);
     //print_AP(APStack, SampleKNb);
-    qr->mat = mat; 
+    qr->mat = mat;
 }
 
 void SampleCodeV2_6(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, int WC, int HA, int HB, int HC)
@@ -857,12 +857,12 @@ void SampleCodeV2_6(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, int
     for(int i = 0; i < size; i++)
     {
         mat[i] = malloc(sizeof(char) * size);
-        for(int j = 0; j < size; j++) 
+        for(int j = 0; j < size; j++)
             mat[i][j] = '0';
     }
-    
-    int distAP = Ap_coord[qr->version - 1][2] - Ap_coord[qr->version - 1][1]; 
-    int AP[2] = {Ap_coord[qr->version - 1][2], Ap_coord[qr->version - 1][2]}; 
+
+    int distAP = Ap_coord[qr->version - 1][2] - Ap_coord[qr->version - 1][1];
+    int AP[2] = {Ap_coord[qr->version - 1][2], Ap_coord[qr->version - 1][2]};
     double CPAx = (double)WA / 7;
     double CPBx = (double)WB / 7;
     double CPCx = (double)WC / 7;
@@ -880,13 +880,13 @@ void SampleCodeV2_6(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, int
     Draw_point(qrimg->img, XA, YA);
     Draw_point(qrimg->img, XB, YB);
     Draw_point(qrimg->img, XC, YC);
-    ScanAP(qrimg->img, &Px, &Py); 
+    ScanAP(qrimg->img, &Px, &Py);
     //AP SCANNED
-    
-    double Lxp = abs(XA - XB);
-    double Lyp = abs(YA - YC);
-    double Lx = abs(XC - Px);
-    double Ly = abs(YB - Py);
+
+    double Lxp = abs((int)XA - (int)XB);
+    double Lyp = abs((int)YA - (int)YC);
+    double Lx = abs((int)XC - (int)Px);
+    double Ly = abs((int)YB - (int)Py);
     double CPxp = Lxp / distAP;
     double CPyp = Lyp / distAP;
     double CPx = Lx / distAP;
@@ -907,16 +907,16 @@ void SampleCodeV2_6(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, int
 }
 
 void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, int WC, int HA, int HB, int HC)
-{ 
+{
     int size = qr->version * 4 + 17;
     char **mat = malloc(sizeof(char*) * size);
     for(int i = 0; i < size; i++)
     {
         mat[i] = malloc(sizeof(char) * size);
-        for(int j = 0; j < size; j++) 
+        for(int j = 0; j < size; j++)
             mat[i][j] = '0';
     }
-    
+
     int distAP = Ap_coord[qr->version - 1][2] - Ap_coord[qr->version - 1][1];
     int SampleKNb = (int)sqrt(Ap_coord[qr->version - 1][0] + 3);
     double CPAx = (double)WA / 7;
@@ -933,7 +933,7 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
     double XC = qrimg->coordC[0] + 3 * CPCx;
     double YC = qrimg->coordC[1] - 3 * CPCy;
     double ***APStack = malloc(sizeof(double) * SampleKNb);
-    
+
     for(int i = 0; i < SampleKNb; i++)
     {
         APStack[i] = malloc(sizeof(double*) * SampleKNb);
@@ -942,17 +942,17 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             APStack[i][j] = calloc(2, sizeof(double));
         }
     }
-    
+
     double **CPxs = malloc(sizeof(double*) * (SampleKNb));
     for(int i = 0; i < SampleKNb; i++)
     {
-        CPxs[i] = calloc(SampleKNb, sizeof(double)); 
+        CPxs[i] = calloc(SampleKNb, sizeof(double));
     }
-    
+
     double **CPys = malloc(sizeof(double*) * (SampleKNb - 1));
     for(int i = 0; i < SampleKNb - 1; i++)
     {
-        CPys[i] = calloc(SampleKNb, sizeof(double)); 
+        CPys[i] = calloc(SampleKNb, sizeof(double));
     }
     APStack[0][0][0] = XA;
     APStack[0][0][1] = YA;
@@ -999,11 +999,11 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             APStack[x + 1][y + 1][0] = Px3;
             APStack[x + 1][y + 1][1] = Py3;
             //Updating module size
-            Lxp = abs(APStack[x][y][0] - APStack[x + 1][y][0]);
-            Lyp = abs(APStack[x][y][1] - APStack[x][y + 1][1]);
-            Lx = abs(APStack[x][y + 1][0] - APStack[x + 1][y + 1][0]);
-            Ly = abs(APStack[x + 1][y][1] - APStack[x + 1][y + 1][1]);
-            //warn("Lxp, Lyp, Lx, Ly : %lf %lf %lf %lf", Lxp, Lyp, Lx, Ly); 
+            Lxp = abs((int)APStack[x][y][0] - (int)APStack[x + 1][y][0]);
+            Lyp = abs((int)APStack[x][y][1] - (int)APStack[x][y + 1][1]);
+            Lx = abs((int)APStack[x][y + 1][0] - (int)APStack[x + 1][y + 1][0]);
+            Ly = abs((int)APStack[x + 1][y][1] - (int)APStack[x + 1][y + 1][1]);
+            //warn("Lxp, Lyp, Lx, Ly : %lf %lf %lf %lf", Lxp, Lyp, Lx, Ly);
             CPxp = Lxp / distAP;
             CPyp = Lyp / distAP;
             CPx = Lx / distAP;
@@ -1015,12 +1015,12 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             SampleGridKernel(qrimg->img, mat, APStack[x][y][0],
             APStack[x][y][1], APStack[x+1][y][0], APStack[x+1][y][1],
             APStack[x][y+1][0], APStack[x][y+1][1], APStack[x + 1][y + 1][0],
-            APStack[x + 1][y + 1][1], CPxs[y][x], CPys[y][x], CPxs[y + 1][x], 
+            APStack[x + 1][y + 1][1], CPxs[y][x], CPys[y][x], CPxs[y + 1][x],
             CPys[y][x + 1], distAP, x, y);
             x++;
         }
         CPxp = CPxs[y][0];
-        CPyp = CPys[y][0]; 
+        CPyp = CPys[y][0];
         x = 0;
         y++;
     }
@@ -1034,10 +1034,10 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             APStack[0][1][1], CPys[0][0], CPAx, CPxs[1][0], distAP, 0);
         }
         else if(y == SampleKNb - 2)
-        { 
+        {
             SampleGridBorderLeft(qrimg->img, mat,
             APStack[0][y][0], APStack[0][y][1], APStack[0][y + 1][0],
-            APStack[0][y + 1][1], CPys[y][0], CPxs[y][0], CPCx, distAP, y);   
+            APStack[0][y + 1][1], CPys[y][0], CPxs[y][0], CPCx, distAP, y);
         }
         else
         {
@@ -1046,7 +1046,7 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             APStack[0][y + 1][1], CPys[y][0], CPxs[y][0], CPxs[y + 1][0], distAP, y);
         }
     }
-    
+
     //Top Border
     for(int x = 0; x < SampleKNb - 1; x++)
     {
@@ -1057,10 +1057,10 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             APStack[1][0][1], CPxs[0][0], CPAy, CPys[0][1], distAP, 0);
         }
         else if(x == SampleKNb - 2)
-        { 
+        {
             SampleGridBorderTop(qrimg->img, mat,
             APStack[x][0][0], APStack[x][0][1], APStack[x + 1][0][0],
-            APStack[x + 1][0][1], CPxs[0][x], CPys[0][x], CPBy, distAP, x);   
+            APStack[x + 1][0][1], CPxs[0][x], CPys[0][x], CPBy, distAP, x);
         }
         else
         {
@@ -1069,7 +1069,7 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             APStack[x + 1][0][1], CPxs[0][x], CPys[0][x], CPys[0][x + 1], distAP, x);
         }
     }
-    
+
     //Bottom Border
     int yend = SampleKNb - 1;
     for(int x = 0; x < SampleKNb - 1; x++)
@@ -1087,7 +1087,7 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             APStack[x + 1][yend][1], CPxs[yend][x], CPys[yend - 1][x], CPys[yend - 1][x + 1], distAP, x, yend - 1);
         }
     }
-    
+
     //Right Border
     int xend = SampleKNb - 1;
     for(int y = 0; y < SampleKNb - 1; y++)
@@ -1105,13 +1105,13 @@ void SampleCodeV7_40(struct GeoImg *qrimg, struct QrCode *qr, int WA, int WB, in
             APStack[xend][y + 1][1], CPxs[y + 1][xend - 1], CPxs[y][xend - 1], CPys[y][xend], distAP, y, xend - 1);
         }
     }
-    
+
     SampleGridCorner(qrimg->img, mat, APStack[SampleKNb - 1][SampleKNb - 1][0],
-    APStack[SampleKNb - 1][SampleKNb - 1][1], CPxs[yend][xend - 1], 
+    APStack[SampleKNb - 1][SampleKNb - 1][1], CPxs[yend][xend - 1],
     CPys[yend -1][xend], distAP, xend - 1);
     //print_mat(mat, size);
     //draw_AP(APStack, SampleKNb, qrimg->img);
     //display_image(qrimg->img);
     //print_AP(APStack, SampleKNb);
-    qr->mat = mat; 
+    qr->mat = mat;
 }
