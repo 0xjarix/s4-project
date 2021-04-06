@@ -113,11 +113,11 @@ void binarisation(SDL_Surface* image_surface, int* binarisation,  int* greyscale
     int h = image_surface->h;
     int size = h*w;
 
-    double o = 128;
-    double v2 = calculateV2(o,greyscale, size);
-    double v1 = calculateV1(o+v2, greyscale, size);
-
-        
+    //double o = 128;
+    //double v2 = calculateV2(o,greyscale, size);
+    //double v1 = calculateV1(o+v2, greyscale, size);
+    double v1;
+    double v2;
     double Told=128;
     double Tnew = 128;
     do{
