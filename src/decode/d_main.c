@@ -1,8 +1,5 @@
 /*
  ** MAIN FILE FOR SEGMENTATION
- ** - Free Functions
- ** - Main Segmentation Function
- ** - Main Preprocessing Function
  */
 
 # include "../segmentation/segmentation.h"
@@ -10,6 +7,7 @@
 
 void Help()
 {
+    // Usage function.
     printf("Usage: ./decode <path>\n");
 }
 
