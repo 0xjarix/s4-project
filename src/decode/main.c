@@ -5,6 +5,7 @@ int main(int argc, char* argv[])
 {
     // Added new function call to be able to compile GUI and CLI
     // at the same time.
+    // Maybe a tempo
     start(argc, argv, 1);
     return 0;
 }
