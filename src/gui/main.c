@@ -20,7 +20,6 @@ typedef struct BannerMenu
 
 typedef struct UserInterface
 {
-    // Neural network
 
     // Main top-level window
     GtkWindow *window;
