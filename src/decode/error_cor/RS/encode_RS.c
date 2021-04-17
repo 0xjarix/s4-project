@@ -14,7 +14,8 @@ struct Array* array2(uint8_t a, uint8_t b)
     return p;
 }
 
-/*Generate an irreducible generator polynomial (necessary to encode a message into Reed-Solomon)*/
+/*Generate an irreducible generator polynomial (necessary to encode a message
+ * into Reed-Solomon)*/
 struct Array* rs_generator_poly(uint8_t nsym, struct gf_tables *gf_table)
 {
     struct Array *g = malloc(sizeof(struct Array));
@@ -27,10 +28,13 @@ struct Array* rs_generator_poly(uint8_t nsym, struct gf_tables *gf_table)
 }
 
 /*Reed-Solomon main encoding function*/
-struct Array* rs_encode_msg(struct Array* msg_in, uint8_t nsym, struct gf_tables *gf_table)
+struct Array* rs_encode_msg(struct Array* msg_in, uint8_t nsym,
+        struct gf_tables *gf_table)
 {
     if(msg_in->used + nsym > 255){
-        fprintf(stderr, "Message too long, %lu is the size when 255 is the max", msg_in->used + nsym);
+        fprintf(stderr,
+                "Message too long, %lu is the size when 255 is the max",
+                msg_in->used + nsym);
         exit(EXIT_FAILURE);
     }
     size_t len_gen = nsym * 2;
@@ -60,7 +64,7 @@ struct Array* rs_encode_msg(struct Array* msg_in, uint8_t nsym, struct gf_tables
 }
 
 size_t* JtoL(char** words, size_t size, size_t err_words)
-{    
+{
     struct gf_tables *gf_table = malloc(sizeof(struct gf_tables));
     gf_table->gf_exp = malloc(sizeof(struct Array));
     gf_table->gf_log = malloc(sizeof(struct Array));
@@ -87,10 +91,6 @@ size_t* JtoL(char** words, size_t size, size_t err_words)
     {
         output[i] = msg->array[i + msg_in->used];
     }
-    /*for (size_t i = 0; i < msg->used; ++i) 
-    {
-        printf("%u ", msg->array[i]);
-    }*/
 
 
     free(gf_table->gf_exp);
