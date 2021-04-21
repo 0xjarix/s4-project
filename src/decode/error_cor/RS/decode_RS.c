@@ -210,7 +210,7 @@ struct Array* rs_find_errors(struct Array *err_loc, size_t nmess,
         }
     }
     if(err_pos->used != errs){
-        fprintf(stderr, "Too many (or few) errors found by Chien Search
+        fprintf(stderr, "Too many (or few) errors found by Chien Search\
                 for the errdata locator polynomial!");
         exit(EXIT_FAILURE);
     }
