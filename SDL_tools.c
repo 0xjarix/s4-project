@@ -1,7 +1,7 @@
 #include <err.h>
-# include "SDL2/SDL.h"
-# include "SDL2/SDL_image.h"
-
+# include "SDL/SDL.h"
+# include "SDL/SDL_image.h"
+#include "SDL_tools.h"
 
 void init_sdl()
 {
@@ -84,10 +84,8 @@ void update_surface(SDL_Surface* screen, SDL_Surface* image)
     if (SDL_BlitSurface(image, NULL, screen, NULL) < 0)
         warnx("BlitSurface error: %s\n", SDL_GetError());
 
-    //SDL_UpdateRect(screen, 0, 0, image->w, image->h);
+    SDL_UpdateRect(screen, 0, 0, image->w, image->h);
 }
-
-
 
 SDL_Surface* load_image(char *path)
 {
@@ -101,7 +99,7 @@ SDL_Surface* load_image(char *path)
 
     return img;
 }
-/*
+
 SDL_Surface* display_image(SDL_Surface *img)
 {
     SDL_Surface *screen;
@@ -125,7 +123,7 @@ SDL_Surface* display_image(SDL_Surface *img)
     // return the screen for further uses
     return screen;
 }
-*/
+
 void wait_for_keypressed()
 {
     SDL_Event event;

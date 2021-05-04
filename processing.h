@@ -1,5 +1,6 @@
 #ifndef PROCESSING_H
 #define PROCESSING_H
+#include "SDL_tools.h"
 
 int grayscale(SDL_Surface* image_surface, int* grayscale_image);
 double calculateV2(double v, int* greyscale, int size);

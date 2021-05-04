@@ -1,7 +1,5 @@
 #include <err.h>
 #include <math.h>
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
 #include "SDL_tools.h"
 
 //SDL TOOLS
@@ -160,8 +158,8 @@ int getLeadingSize(int* binarisation, int w, int h, int k)
 int isColumnFollowPattern(int x, int y)
 {
     //TODO
-}*/
-
+}
+*/
 int doesFollowPattern(int* binarisation, int w, int h, int k, int* ratioPtr)
 {
  //   printf("\n");
@@ -266,6 +264,37 @@ void localisation(int* binarisationArray, int w, int h)
 //    printf("lengthOfSeconBlockBlockFollowingPattern=%d \n",lengthOfSeconBlockBlockFollowingPattern);
  
  }
+ /*
+int* average_color(DL_Surface* image_surface)
+{
+    static int rgb[3];
+    int height = image_surface->h;
+    int width = image_surface->w;
+    Uint8 red = 0;
+    Uint8 green = 0;
+    Uint8 blu = 0;
+    int s = 0;
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            Uint32 pixel = get_pixel(image_surface, i, j);
+            Uint8 r, g, b;
+            SDL_GetRGB(pixel, image_surface->format, &r, &g, &b);
+            red += r;
+            green += g;
+            blu += b;
+            s++;
+        }
+    }
+    red /= s;
+    green /= s;
+    blu /= s;
+    r[0] = red;
+    r[1] = green;
+    r[2] = blu;
+    return r;
+}
 
 int main(int argc,  char * arg[])
 {
@@ -273,10 +302,10 @@ int main(int argc,  char * arg[])
     {
         err(1, "arg error");
     }
-    /*if(!init_sdl())
+    if(!init_sdl())
     {
         return -1;
-    }*/
+    }
     init_sdl();
 
     SDL_Surface* image_surface = load_image(arg[1]);
@@ -300,4 +329,4 @@ int main(int argc,  char * arg[])
 
     
     return 0;
-}
+}*/
