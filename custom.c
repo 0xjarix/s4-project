@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     screen_surface = display_image(image_surface);//image display
     SDL_Surface* image_surface2 = load_image(argv[2]);
     unsigned int* average = average_color(image_surface2);
+    printf("r=%d\ng=%d\nb=%d\n",average[0], average[1], average[2]);
     wait_for_keypressed();//wait for a key to be pressed
 
     int w = image_surface->w;
@@ -73,7 +74,6 @@ int main(int argc, char *argv[])
 	            r = average[0];
 	            g = average[1];
 	            b = average[2];
-                printf("%d\n%d\n%d\n",r,g,b);
 	            Uint32 _pixel = SDL_MapRGB(image_surface->format, r, g, b);
 	            put_pixel(image_surface, x, y, _pixel);
             }
