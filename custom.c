@@ -12,7 +12,7 @@ unsigned int* average_color(SDL_Surface* image_surface)
     unsigned int red = 0;
     unsigned int green = 0;
     unsigned int blu = 0;
-    int s = 0;
+    int s = height*width;
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
@@ -20,10 +20,9 @@ unsigned int* average_color(SDL_Surface* image_surface)
             Uint32 pixel = get_pixel(image_surface, i, j);
             Uint8 r, g, b;
             SDL_GetRGB(pixel, image_surface->format, &r, &g, &b);
-            red += r;//==255?0:r;
-            green += g;//==255?0:g;
-            blu += b;//==255?0:b;
-            s++;
+            red += r;//==255?0:r);
+            green += g;// ==255?0:g);
+            blu += b;// == 255?0:b);
         }
     }
     red /= s;
