@@ -9,7 +9,6 @@
 #define UNUSED(x) (void)(x)
 #endif
 
-#define COUCOU(x) g_print("coucou %i\n", x);
 
 typedef struct BannerMenu
 {
