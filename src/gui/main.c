@@ -1,5 +1,6 @@
 #include "main.h"
 #include "../decode/d_main.h"
+#include "../custom/custom.h"
 
 #define try bool __HadError=false;
 #define catch(x) ExitJmp:if(__HadError)
@@ -20,10 +21,7 @@ typedef struct BannerMenu
 
 typedef struct UserInterface
 {
-<<<<<<< HEAD
-=======
     // Neural network
->>>>>>> 7702664e8b102ae18af4ce5b9d9c8386987c6a5c
 
     // Main top-level window
     GtkWindow *window;
@@ -36,6 +34,9 @@ typedef struct UserInterface
     GtkEventBox *input_image_event_box;
     GtkImage *input_image;
 
+    char *custom_filename;
+    GtkEventBox *custom_image_event_box;
+    GtkImage *custom_image;
     // Buttons /////////////////////////////
     //// Preview
     GtkComboBox *preview_interpolation_menu;
@@ -94,6 +95,36 @@ void open_file(UserInterface *ui, char *filename, GtkImage *destination,\
     resize_to_fit(ui, destination, size);
 }
 
+void custom_file_opener(UserInterface *ui)
+{
+    GtkWidget *dialog = gtk_file_chooser_dialog_new(
+            "Open File", ui->window,
+            GTK_FILE_CHOOSER_ACTION_OPEN,
+            "Cancel", GTK_RESPONSE_CANCEL,
+            "Open", GTK_RESPONSE_ACCEPT,
+            NULL);
+    GtkFileFilter *filter = gtk_file_filter_new();
+    gtk_file_filter_add_pixbuf_formats(filter);
+    gtk_file_filter_set_name(filter, "Images (.png/.jpg/.jpeg/etc...)");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+
+    char *filename;
+    switch(gtk_dialog_run(GTK_DIALOG(dialog)))
+    {
+        case GTK_RESPONSE_ACCEPT:
+            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+
+            open_file(ui, filename, ui->custom_image, 40);
+            ui->custom_filename = filename;
+
+            break;
+        default:
+            break;
+    }
+
+    gtk_widget_destroy(dialog);
+}
+
 
 void run_file_opener(UserInterface *ui)
 {
@@ -133,6 +164,19 @@ void on_open_activate(GtkMenuItem *menuitem, gpointer user_data)
     run_file_opener(ui);
 }
 
+gboolean on_custom_image_event_box_button_release_event(GtkWidget *widget,\
+        GdkEvent *event, gpointer user_data)
+{
+    UNUSED(widget);
+    UNUSED(event);
+    UserInterface *ui = user_data;
+
+    custom_file_opener(ui);
+
+    return TRUE;
+}
+
+
 gboolean on_input_image_event_box_button_release_event(GtkWidget *widget,\
         GdkEvent *event, gpointer user_data)
 {
@@ -150,18 +194,17 @@ void on_about_activate(GtkMenuItem *menuitem, gpointer user_data)
     UNUSED(menuitem);
     UNUSED(user_data);
 
-    char *authors[] = {"Yassine DAMIRI <yassine.damiri@epita.fr>",\
+    char *authors[] = {"Joseph ABOU-RIZK <joseph.abou-rizk@epita.fr>",\
         "Victor-Emmanuel PROVOST <victor-emmanuel.provost@epita.fr>",\
-            "Raphaël DUHEN <raphael.duhen@epita.fr>",\
-            "Param DAVE <param.dave@epita.fr>"};
+            "Charbel ABBOUD <charbel.abboud@epita.fr>"};
 
     GdkPixbuf *logo =
         gdk_pixbuf_new_from_file("./resources/logo_small.png", NULL);
     gtk_show_about_dialog(\
             NULL,\
-            "program-name", "Eye-T",\
+            "program-name", "ACRE",\
             "logo", logo,\
-            "title", "About Eye-T",\
+            "title", "About ACRE",\
             "comments", "Onii-san is watching you.",
             "version", "1.0.0",
             "license-type", GTK_LICENSE_MIT_X11,
@@ -309,6 +352,19 @@ void on_output_button_clicked(GtkButton *button, gpointer user_data)
     //passed++;
 }
 
+void on_custom_button_clicked(GtkButton *button, gpointer user_data)
+{
+    //int passed = 0;
+    UNUSED(button);
+    UserInterface *ui = user_data;
+
+
+    char *argv[3] = {"./gui", ui->input_filename, ui->custom_filename };
+    custom(3, argv);
+    //COUCOU(passed);
+    //passed++;
+}
+
 
 int main()
 {
@@ -340,6 +396,13 @@ int main()
         GTK_EVENT_BOX(gtk_builder_get_object(builder, "input_image_event_box"));
     GtkImage *input_image =
         GTK_IMAGE(gtk_builder_get_object(builder, "input_image"));
+
+    GtkEventBox *custom_image_event_box =
+        GTK_EVENT_BOX(gtk_builder_get_object(builder,
+                    "custom_image_event_box"));
+    GtkImage *custom_image =
+        GTK_IMAGE(gtk_builder_get_object(builder, "custom_image"));
+
 
     // Input filter
     GtkFileFilter *file_filter = gtk_file_filter_new();
@@ -375,6 +438,8 @@ int main()
     //// Output
     GtkButton *save_button =
         GTK_BUTTON(gtk_builder_get_object(builder, "save_button"));
+     GtkButton *custom_button =
+        GTK_BUTTON(gtk_builder_get_object(builder, "custom_button"));
     GtkButton *output_button =
         GTK_BUTTON(gtk_builder_get_object(builder, "output_button"));
 
@@ -412,6 +477,9 @@ int main()
         .input_image_event_box = input_image_event_box,
         .input_image = input_image,
 
+        .custom_filename = malloc(256 * sizeof(char)),
+        .custom_image_event_box = custom_image_event_box,
+        .custom_image = custom_image,
         // Buttons
         //// Preview
         .preview_interpolation_menu = preview_interpolation_menu,
@@ -448,11 +516,17 @@ int main()
     //// Input image
     g_signal_connect(GTK_WIDGET(input_image_event_box), "button-release-event",\
             G_CALLBACK(on_input_image_event_box_button_release_event), &ui);
+    g_signal_connect(GTK_WIDGET(custom_image_event_box),
+            "button-release-event",\
+            G_CALLBACK(on_custom_image_event_box_button_release_event), &ui);
+
 
     //// Preview
 
     //// Options
     ////// Output
+    g_signal_connect(custom_button, "clicked",\
+            G_CALLBACK(on_custom_button_clicked), &ui);
     g_signal_connect(output_button, "clicked",\
             G_CALLBACK(on_output_button_clicked), &ui);
 

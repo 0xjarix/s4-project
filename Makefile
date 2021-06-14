@@ -23,7 +23,7 @@ SGSRC= src/segmentation/fpfind.c src/segmentation/FPValid.c src/segmentation/geo
 BSSRC= src/segmentation/proc_code.c src/segmentation/color_mat.c src/segmentation/demask.c src/segmentation/bit_ext.c
 MSSRC= src/segmentation/segmentation.c
 
-GUISRC = src/gui/main.c
+GUISRC = src/gui/main.c src/custom/custom.c src/custom/SDL_tools.c
 DECSRC = src/decode/main.c
 # Decoding objects
 GUIOBJ=${GUISRC:.c=.o}

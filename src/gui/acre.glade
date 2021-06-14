@@ -181,7 +181,21 @@
                         <property name="can-focus">True</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <placeholder/>
+                          <object class="GtkEventBox" id="custom_image_event_box">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <child>
+                              <object class="GtkImage" id="custom_image">
+                                <property name="visible">True</property>
+                                <property name="can-focus">False</property>
+                                <property name="stock">gtk-add</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="resize">False</property>
+                            <property name="shrink">True</property>
+                          </packing>
                         </child>
                         <child>
                           <object class="GtkFrame">
@@ -242,34 +256,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkPaned">
+              <object class="GtkButton" id="custom_button">
+                <property name="label" translatable="yes">Custom QR</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="position">127</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Processing:</property>
-                  </object>
-                  <packing>
-                    <property name="resize">False</property>
-                    <property name="shrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkProgressBar">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="margin-start">10</property>
-                    <property name="margin-bottom">10</property>
-                    <property name="show-text">True</property>
-                  </object>
-                  <packing>
-                    <property name="resize">True</property>
-                    <property name="shrink">False</property>
-                  </packing>
-                </child>
+                <property name="receives-default">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -279,7 +270,7 @@
             </child>
             <child>
               <object class="GtkButton" id="output_button">
-                <property name="label" translatable="yes">Start decoding</property>
+                <property name="label" translatable="yes">Decode normal QR Code</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
