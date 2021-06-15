@@ -1,5 +1,5 @@
 CC= gcc
-CFLAGS= -Werror -Wall -std=c99
+CFLAGS= -Wextra -Wall -std=c99
 
 all: demo
 demo: demo.o
