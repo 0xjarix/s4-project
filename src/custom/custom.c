@@ -191,6 +191,7 @@ SDL_Surface* custom(int argc, char* argv[])
     {
         err(1, "arg error");
     }
+    //C
     SDL_Surface* image_surface;
     SDL_Surface* screen_surface;
     init_sdl1();
