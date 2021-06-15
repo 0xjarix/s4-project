@@ -193,7 +193,7 @@ SDL_Surface* custom(int argc, char* argv[])
     }
     SDL_Surface* image_surface;
     SDL_Surface* screen_surface;
-    init_sdl();
+    init_sdl1();
     image_surface = load_image1(argv[1]);
     //screen_surface = display_image(image_surface);//image display
     SDL_Surface* logo = load_image1(argv[2]);
