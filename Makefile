@@ -1,10 +1,10 @@
 # Makefile
 
 CC= gcc #-fsanitize=address
-CPPFLAGS= `pkg-config --cflags sdl2 gtk+-3.0` -MMD
+CPPFLAGS= `pkg-config --cflags sdl2 sdl gtk+-3.0` -lSDL2_image -lSDL_image -MMD
 CFLAGS= -Wall -Wextra -std=c99 -O2 -g
 LDFLAGS=
-LDLIBS=`pkg-config --libs sdl2 gtk+-3.0` -lSDL2_image -lm
+LDLIBS=`pkg-config --libs sdl2 sdl gtk+-3.0` -lSDL2_image -lSDL_image -lm
 
 DMSRC= src/decode/d_main.c src/decode/freect.c
 

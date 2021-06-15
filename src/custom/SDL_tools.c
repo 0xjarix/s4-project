@@ -21,7 +21,7 @@ Uint8* pixel_ref1(SDL_Surface *surf, unsigned x, unsigned y)
 
 Uint32 get_pixel1(SDL_Surface *surface, unsigned x, unsigned y)
 {
-    Uint8 *p = pixel_ref(surface, x, y);
+    Uint8 *p = pixel_ref1(surface, x, y);
 
     switch (surface->format->BytesPerPixel)
     {
@@ -46,7 +46,7 @@ Uint32 get_pixel1(SDL_Surface *surface, unsigned x, unsigned y)
 
 void put_pixel1(SDL_Surface *surface, unsigned x, unsigned y, Uint32 pixel)
 {
-    Uint8 *p = pixel_ref(surface, x, y);
+    Uint8 *p = pixel_ref1(surface, x, y);
 
     switch(surface->format->BytesPerPixel)
     {

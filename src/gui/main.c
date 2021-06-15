@@ -360,7 +360,10 @@ void on_custom_button_clicked(GtkButton *button, gpointer user_data)
 
 
     char *argv[3] = {"./gui", ui->input_filename, ui->custom_filename };
-    custom(3, argv);
+    SDL_Surface* res = custom(3, argv);
+    if (res != NULL) {
+        open_file(ui, "custom.png", ui->input_image, 360);
+    }
     //COUCOU(passed);
     //passed++;
 }

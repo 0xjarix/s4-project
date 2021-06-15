@@ -35,25 +35,25 @@ Uint8* pixel_ref(SDL_Surface *surf, unsigned x, unsigned y)
 Uint32 get_pixel(SDL_Surface *surface, unsigned x, unsigned y)
 {
     Uint8 *p = pixel_ref(surface, x, y);
-    
+
     switch (surface->format->BytesPerPixel)
     {
         case 1:
             return *p;
-            
+
         case 2:
             return *(Uint16 *)p;
-            
+
         case 3:
             if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
                 return p[0] << 16 | p[1] << 8 | p[2];
             else
                 return p[0] | p[1] << 8 | p[2] << 16;
-            
+
         case 4:
             return *(Uint32 *)p;
     }
-    
+
     return 0;
 }*/
 //1st step: binarization
@@ -65,7 +65,7 @@ int grayscale(SDL_Surface* image_surface, int* grayscale_image)
     {
         for (int j = 0; j < height; j++)
         {
-            Uint32 pixel = get_pixel(image_surface, i, j);
+            Uint32 pixel = get_pixel1(image_surface, i, j);
             Uint8 r, g, b;
             SDL_GetRGB(pixel, image_surface->format, &r, &g, &b);
             Uint8 average = 0.3 * r + 0.59 * g + 0.11 * b;
@@ -124,7 +124,7 @@ void binarisation(SDL_Surface* image_surface, int* binarisation,  int* greyscale
          Told = Tnew;
          Tnew =v1/2;
       } while(Tnew!=Told);
-        
+
       for(int i=0;i<size;++i)
       {
          binarisation[i] = greyscale[i]> Tnew ? 1 : 0;
@@ -172,7 +172,7 @@ int doesFollowPattern(int* binarisation, int w, int h, int k, int* ratioPtr)
 
     //Size of first black block
     int ratio = getSizeOfRepetetiveCharacters(binarisation, w, h, 0, k);
-    
+
     {
         int currentCursor= ratio;
  //   printf("%d:",ratio/ratio);
@@ -254,15 +254,15 @@ void localisation(int* binarisationArray, int w, int h)
         lengthOfSeconBlockBlockFollowingPattern++;
         startIndex++;
     }
-    
+
     if(ratio1!=ratio2){
         return;
     }
-    
+
     printf("secondCenter=%d \n",h-7*ratio2+lengthOfSecondBlock+lengthOfSeconBlockBlockFollowingPattern/2);
 
 //    printf("lengthOfSeconBlockBlockFollowingPattern=%d \n",lengthOfSeconBlockBlockFollowingPattern);
- 
+
  }
  /*
 int* average_color(DL_Surface* image_surface)
@@ -316,7 +316,7 @@ int main(int argc,  char * arg[])
     grayscale(image_surface, greyscale);
     int* binarisationArray = malloc(w*h*sizeof(int));
     binarisation(image_surface, binarisationArray, greyscale);
-    
+
     for(int j=0;j<h;++j){
         //printf("(%d)",j);
         for(int i=0;i<w;++i){
@@ -324,9 +324,9 @@ int main(int argc,  char * arg[])
         }
         printf("\n");
     }
-    
+
     localisation(binarisationArray, w, h);
 
-    
+
     return 0;
 }*/

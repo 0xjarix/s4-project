@@ -35,7 +35,7 @@ unsigned int* average_color(SDL_Surface* image_surface)
     return rgb;
 }
 
-void overlay (SDL_Surface* image_surface, SDL_Surface* logo)
+SDL_Surface* overlay(SDL_Surface* image_surface, SDL_Surface* logo)
 {
     int hi = image_surface->h;
     int wi = image_surface->w;
@@ -102,9 +102,10 @@ void overlay (SDL_Surface* image_surface, SDL_Surface* logo)
            }
         }
     }
+    return image_surface;
 }
 
-void color_average(SDL_Surface* image_surface, SDL_Surface* logo)
+SDL_Surface* color_average(SDL_Surface* image_surface, SDL_Surface* logo)
 {
     unsigned int* average = average_color(logo);
     int w = image_surface->w;
@@ -127,6 +128,7 @@ void color_average(SDL_Surface* image_surface, SDL_Surface* logo)
                 }
             }
         }
+    return image_surface;
 }
 
 void res(SDL_Surface* logo, int x, int y)
@@ -151,33 +153,35 @@ void res(SDL_Surface* logo, int x, int y)
     }
 }
 
-void custom(int argc, char* argv[])
+SDL_Surface* custom(int argc, char* argv[])
 {
     if (argc != 3) {
-        return;
+        return NULL;
     }
      SDL_Surface* image_surface;
-    SDL_Surface* screen_surface;
+    //SDL_Surface* screen_surface;
     init_sdl1();
     image_surface = load_image1(argv[1]);
-    //screen_surface = display_image(image_surface);//image display
+ //   screen_surface = display_image1(image_surface);//image display
     SDL_Surface* logo = load_image1(argv[2]);
 //    int w = image_surface->w;
 //    int h = image_surface->h;
 //    wait_for_keypressed();//wait for a key to be pressed
 //    res(logo, w/4, h/4);
-//    screen_surface = display_image(logo);
+  //  screen_surface = display_image1(logo);
     //wait_for_keypressed();//wait for a key to be pressed
-    screen_surface = display_image1(image_surface);//image display
+    //screen_surface = display_image1(image_surface);//image display
     //wait_for_keypressed();//wait for a key to be pressed
-    color_average(image_surface, logo);//moyenne des couleurs
-    update_surface1(screen_surface, image_surface);
+    image_surface = color_average(image_surface, logo);//moyenne des couleurs
+   // update_surface1(screen_surface, image_surface);
     //wait_for_keypressed();//wait for a key to be pressed
-    overlay(image_surface, logo);//logo au centre du qr code
-    update_surface1(screen_surface, image_surface);
-    wait_for_keypressed1();//wait for a key to be pressed
-    SDL_FreeSurface(image_surface);//freeing the image surface
-    SDL_FreeSurface(screen_surface);//freeing the screen surface
+    image_surface = overlay(image_surface, logo);//logo au centre du qr code
+ //  update_surface1(screen_surface, image_surface);
+    //wait_for_keypressed1();//wait for a key to be pressed
+    //SDL_FreeSurface(image_surface);//freeing the image surface
+    //SDL_FreeSurface(screen_surface);//freeing the screen surface
+    SDL_SaveBMP(image_surface, "custom.bmp");
+    return image_surface;
 }
 
 
@@ -190,23 +194,23 @@ void custom(int argc, char* argv[])
     SDL_Surface* image_surface;
     SDL_Surface* screen_surface;
     init_sdl();
-    image_surface = load_image(argv[1]);
+    image_surface = load_image1(argv[1]);
     //screen_surface = display_image(image_surface);//image display
-    SDL_Surface* logo = load_image(argv[2]);
+    SDL_Surface* logo = load_image1(argv[2]);
 //    int w = image_surface->w;
 //    int h = image_surface->h;
 //    wait_for_keypressed();//wait for a key to be pressed
 //    res(logo, w/4, h/4);
 //    screen_surface = display_image(logo);
-    wait_for_keypressed();//wait for a key to be pressed
-    screen_surface = display_image(image_surface);//image display
-    wait_for_keypressed();//wait for a key to be pressed
+    wait_for_keypressed1();//wait for a key to be pressed
+    screen_surface = display_image1(image_surface);//image display
+    wait_for_keypressed1();//wait for a key to be pressed
     color_average(image_surface, logo);//moyenne des couleurs
-    update_surface(screen_surface, image_surface);
-    wait_for_keypressed();//wait for a key to be pressed
+    update_surface1(screen_surface, image_surface);
+    wait_for_keypressed1();//wait for a key to be pressed
     overlay (image_surface, logo);//logo au centre du qr code
-    update_surface(screen_surface, image_surface);
-    wait_for_keypressed();//wait for a key to be pressed
+    update_surface1(screen_surface, image_surface);
+    wait_for_keypressed1();//wait for a key to be pressed
     SDL_FreeSurface(image_surface);//freeing the image surface
     SDL_FreeSurface(screen_surface);//freeing the screen surface
     return 0;
